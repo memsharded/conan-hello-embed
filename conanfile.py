@@ -6,6 +6,7 @@ class HelloConan(ConanFile):
    license="MIT"
    settings = "os", "compiler", "build_type", "arch"
    url = "https://github.com/memsharded/conan-hello-embed.git"
+   exports = "CMakeLists.txt", "hello.*", "main.cpp", "LICENSE", "README.md"
 
    def build(self):
        cmake = CMake(self.settings)
@@ -13,9 +14,9 @@ class HelloConan(ConanFile):
        self.run("cmake --build . %s" % cmake.build_config)
 
    def package(self):
-       self.copy("*.h", dst="include", src="hello")
-       self.copy("*.lib", dst="lib", src="hello/lib")
-       self.copy("*.a", dst="lib", src="hello/lib")
+       self.copy("*.h", dst="include")
+       self.copy("*.lib", dst="lib", src="lib")
+       self.copy("*.a", dst="lib", src="lib")
 
    def package_info(self):
        self.cpp_info.libs = ["hello"]
